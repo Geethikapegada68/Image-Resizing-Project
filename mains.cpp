@@ -2,44 +2,40 @@
 #include <iostream>
 #include <chrono>
 
-void resizeWithOpenCV(const cv::Mat& src, cv::Mat& dst, int interpolation);
-void measurePerformance(const cv::Mat& src, int interpolation);
+// Define paths and parameters
+const std::string inputPath = "C:\\G178_1-1080.BMP";
+const std::string outputPath = "output.jpg";
+const int width = 800;
+const int height = 600;
+const int interpolation = cv::INTER_LINEAR; // You can change this to other interpolation methods if needed
 
-int main() {
-    // Load the image
-    cv::Mat img = cv::imread("C:/Users/Geethika Pegada/Documents/CPP/G178_2-1080.BMP");
-    if (img.empty()) {
-        std::cerr << "Error: Could not load image!" << std::endl;
-        return 1;
+void resizeImage(const std::string& inputPath, const std::string& outputPath, int width, int height, int interpolation) {
+    // Load the image from file
+    cv::Mat image = cv::imread(inputPath);
+    if (image.empty()) {
+        std::cerr << "Error loading image: " << inputPath << std::endl;
+        return;
     }
 
-    // Measure performance for each interpolation method
-    measurePerformance(img, cv::INTER_NEAREST);
-    measurePerformance(img, cv::INTER_LINEAR);
-    measurePerformance(img, cv::INTER_CUBIC);
+    // Resize the image
+    cv::Mat resizedImage;
+    auto start = std::chrono::high_resolution_clock::now();
+    cv::resize(image, resizedImage, cv::Size(width, height), 0, 0, interpolation);
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed = end - start;
+    
+    std::cout << "Resizing took " << elapsed.count() << " seconds." << std::endl;
+
+    // Save the resized image to file
+    if (!cv::imwrite(outputPath, resizedImage)) {
+        std::cerr << "Error saving image: " << outputPath << std::endl;
+    }
+}
+
+int main() {
+    // Perform image resizing
+    resizeImage(inputPath, outputPath, width, height, interpolation);
 
     return 0;
 }
 
-void resizeWithOpenCV(const cv::Mat& src, cv::Mat& dst, int interpolation) {
-    cv::resize(src, dst, cv::Size(src.cols / 2, src.rows / 2), 0, 0, interpolation);
-}
-
-void measurePerformance(const cv::Mat& src, int interpolation) {
-    cv::Mat dst;
-    auto start = std::chrono::high_resolution_clock::now();
-
-    for (int i = 0; i < 1000; ++i) {
-        resizeWithOpenCV(src, dst, interpolation);
-    }
-
-    auto end = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
-
-    std::string method;
-    if (interpolation == cv::INTER_NEAREST) method = "INTER_NEAREST";
-    else if (interpolation == cv::INTER_LINEAR) method = "INTER_LINEAR";
-    else if (interpolation == cv::INTER_CUBIC) method = "INTER_CUBIC";
-
-    std::cout << "Time taken for 1000 iterations using " << method << ": " << duration << " ms" << std::endl;
-}
