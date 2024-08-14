@@ -1,56 +1,52 @@
-# Image Resizing Project
+Overview
+This project is a C++ application designed for resizing images using OpenCV. It provides functionality to resize images using different interpolation methods and evaluates their performance. The application demonstrates both standard OpenCV resizing capabilities and custom resizing methods.
 
-## Overview
+Project Status
+The project has been completed and includes several key components. It features an implementation of image resizing using OpenCV’s cv::resize function. Additionally, custom code for resizing images is provided, which uses manual bilinear interpolation. The project also includes performance evaluations for different interpolation methods.
 
-This project is a C++ application for resizing images using OpenCV. It provides functionality to resize images with different interpolation methods and evaluates their performance.
+Prerequisites
+To build and run this project, ensure that the following prerequisites are met:
 
-## Project Status
+OpenCV 4.x: OpenCV must be installed on your system. The binaries should be located in C:\OpenCV\opencv\build\x64\vc16\bin.
+Visual Studio 2022: This IDE is required for building and running the project. Make sure you have Visual Studio 2022 installed on your machine.
+Installation
+Follow these steps to set up the project on your local machine:
 
-The project has been completed. It includes:
+Clone the Repository
 
-- An implementation of image resizing using OpenCV’s `cv::resize` function.
-- Custom code for resizing images.
-- Performance evaluation of different interpolation methods.
+Use Git to clone the repository to your local machine with the following command:
 
-## Prerequisites
+git clone https://github.com/Geethikapegada68/Image-Resizing-Project.git
 
-- **OpenCV 4.x**: Ensure OpenCV is installed. The binaries are expected to be located in `C:\OpenCV\opencv\build\x64\vc16\bin`.
-- **Visual Studio 2022**: Required for building and running the project.
-
-## Installation
-
-1. **Clone the Repository**
-
-   
-   git clone https://github.com/Geethikapegada68/Image-Resizing-Project.git
 Open and Configure the Project
 
 Open Visual Studio 2022.
-Select File > Open > Project/Solution.
-Navigate to and open ImageResize.sln from the cloned repository.
-Configure the project settings:
+Navigate to File > Open > Project/Solution, and open the ImageResize.sln file from the cloned repository.
+Configure the project settings as follows:
 Go to Project > Properties.
-Set Include Directories to C:\OpenCV\opencv\build\include.
-Set Library Directories to C:\OpenCV\opencv\build\x64\vc16\lib.
-Under Linker > Input, add opencv_world4100.lib to Additional Dependencies.
+Set the Include Directories to C:\OpenCV\opencv\build\include.
+Set the Library Directories to C:\OpenCV\opencv\build\x64\vc16\lib.
+Under Linker > Input, add opencv_world4100.lib to the Additional Dependencies.
 Build the Project
 
-Select Build > Build Solution or press Ctrl+Shift+B.
+Build the project by selecting Build > Build Solution or pressing Ctrl+Shift+B.
 
 Run the Application
 
-Navigate to the output directory (e.g., Debug or Release).
-Run ImageResize.exe.
+After building, navigate to the output directory (e.g., Debug or Release) and run ImageResize.exe.
+
 Command-Line Arguments
+The application accepts the following command-line arguments:
+
+input_image_path: The path to the input image that you want to resize.
+output_image_path: The path where the resized image will be saved.
+resize_width: The width of the resized image.
+resize_height: The height of the resized image.
+interpolation_method: The interpolation method to be used for resizing (e.g., cv::INTER_LINEAR).
 
 
-ImageResize.exe [input_image_path] [output_image_path] [resize_width] [resize_height] [interpolation_method]
-input_image_path: Path to the input image.
-output_image_path: Path to save the resized image.
-resize_width: Width of the resized image.
-resize_height: Height of the resized image.
-interpolation_method: Method for resizing (e.g., cv::INTER_LINEAR).
-Example
-ImageResize.exe input.jpg output.jpg 800 600 cv::INTER_LINEAR
+
 Comments
-The code includes detailed comments explaining the use of cv::resize, the custom resizing function, and the performance evaluation of various interpolation methods.
+The codebase includes detailed comments that explain the functionality of cv::resize, the custom resizing function, and the performance evaluation of various interpolation methods. These comments are intended to aid in understanding the implementation and evaluation processes used in the project.
+
+
